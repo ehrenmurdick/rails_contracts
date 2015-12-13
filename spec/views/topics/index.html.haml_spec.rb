@@ -2,7 +2,8 @@ require 'rails_helper'
 
 describe 'topics/index.html.haml' do
   Contract.create('Topic#name ""')
-  let(:topic) { double(:topic, name: 'A Topic') }
+  Contract.create('Topic#to_param "1"')
+  let(:topic) { double(:topic, name: 'A Topic', to_param: '1') }
   let(:topics) { [topic] }
 
   before do
@@ -12,4 +13,5 @@ describe 'topics/index.html.haml' do
   end
 
   it { expect(rendered).to include('A Topic') }
+  it { expect(rendered).to include('href="/topics/1"') }
 end
