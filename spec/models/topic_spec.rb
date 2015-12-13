@@ -23,6 +23,16 @@ describe Topic do
     it { expect(first.name).to eql('first topic') }
   end
 
+  describe '#update_attributes' do
+    Contract.fulfill('Topic#update_attributes true')
+    it { expect(first.update_attributes(name: 'foo')).to be_truthy }
+  end
+
+  describe '#destroy' do
+    Contract.fulfill('Topic#destroy')
+    it { expect { first.destroy }.to_not raise_error }
+  end
+
   describe '#to_param' do
     Contract.fulfill('Topic#to_param "1"')
     it { expect(first.to_param).to eql('309456473') }

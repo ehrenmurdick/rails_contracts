@@ -6,7 +6,7 @@ describe 'topics/index.html.haml' do
   let(:topics) { [topic] }
 
   before do
-   Contract.create('TopicsController assigns @topics')
+   Contract.create('TopicsController#index assigns @topics')
     assign(:topics, topics)
     render
   end

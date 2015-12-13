@@ -17,11 +17,14 @@ class TopicsController < ApplicationController
 
   def update
     @topic = model.find(params[:id])
-    if @topic.update_attributes(params[:topic].permit(:name))
-      redirect_to topic_url(@topic)
-    else
-      render :edit
-    end
+    @topic.update_attributes(params[:topic].permit(:name))
+    redirect_to topic_path(@topic)
+  end
+
+  def destroy
+    @topic = model.find(params[:id])
+    @topic.destroy
+    redirect_to topics_path
   end
 
   def model

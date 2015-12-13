@@ -32,12 +32,12 @@ describe TopicsController do
       end
     end
 
+    Contract.fulfill("TopicsController#index")
     describe 'get :index' do
       before do
         Contract.create('Topic.all [topic]')
         expect(model).to receive(:all).and_return(topics)
 
-        Contract.fulfill("TopicsController#index")
         get :index
       end
 
@@ -46,6 +46,28 @@ describe TopicsController do
       it { expect(assigns[:topics]).to eql(topics) }
     end
 
+    Contract.fulfill('TopicsController#destroy')
+    describe 'delete :destroy' do
+      let(:do_request) do
+        delete :destroy, id: 1
+      end
+      it_behaves_like 'topic not found'
+
+      context 'found' do
+        include_examples('found')
+
+        before do
+          Contract.create('Topic#destroy')
+          expect(topic).to receive(:destroy)
+          do_request
+        end
+
+        Contract.create('TopicsController#index')
+        it { expect(response).to redirect_to('/topics') }
+      end
+    end
+
+    Contract.fulfill('TopicsController#show')
     describe 'get :show' do
       let(:do_request) { get :show, id: 1 }
       it_behaves_like 'topic not found'
@@ -53,7 +75,6 @@ describe TopicsController do
       context 'found' do
         include_examples 'found'
         before do
-          Contract.fulfill('TopicsController#show')
           do_request
         end
 
@@ -99,17 +120,6 @@ describe TopicsController do
 
           Contract.create('TopicsController#show')
           it { expect(response.status).to redirect_to('/topics/1') }
-        end
-
-        describe 'update unsuccessful' do
-          before do
-            Contract.create('Topic#update_attributes false')
-            expect(topic).to receive(:update_attributes).with('name' => 'foo').and_return(false)
-            do_request
-          end
-
-          Contract.create('TopicsController#edit')
-          it { expect(response.status).to render_template(:edit) }
         end
       end
     end
