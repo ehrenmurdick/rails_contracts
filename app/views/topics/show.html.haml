@@ -1,1 +1,4 @@
-= @topic.name
+.name= @topic.name
+.edit.link= link_to 'edit', edit_topic_path(@topic)
+.destroy.link= link_to 'destroy', topic_path(@topic), method: :delete
+.back.link= link_to 'back', topics_path
