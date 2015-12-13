@@ -1,12 +1,33 @@
 require 'rails_helper'
 
 describe TopicsController do
-  describe 'get :index' do
+  let(:topic) { Object.new }
+  let(:topics) { [topic] }
+
+  let(:model) { double(:Topic) }
+
+  describe 'actions' do
     before do
-      Contract.fulfill("TopicsController#index")
-      get :index
+      Contract.create('TopicsController.model Topic')
+      allow(controller).to receive(:model).and_return(model)
     end
 
-    it { expect(response.status).to eql(200) }
+    describe 'get :index' do
+      before do
+        Contract.create('Topic.all [topic]')
+        expect(model).to receive(:all).and_return(topics)
+
+        Contract.fulfill("TopicsController#index")
+        get :index
+      end
+
+      it { expect(response.status).to eql(200) }
+      it { expect(assigns[:topics]).to eql(topics) }
+    end
+  end
+
+  describe '.model' do
+    Contract.fulfill('TopicsController.model Topic')
+    it { expect(controller.model).to eql(Topic) }
   end
 end
