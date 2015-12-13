@@ -1,9 +1,9 @@
 example_id                                            | status | run_time        |
 ----------------------------------------------------- | ------ | --------------- |
-./spec/controllers/topics_controller_spec.rb[1:1:1:1] | passed | 0.01559 seconds |
-./spec/controllers/topics_controller_spec.rb[1:1:1:2] | passed | 0.00254 seconds |
-./spec/controllers/topics_controller_spec.rb[1:2:1]   | passed | 0.00105 seconds |
-./spec/models/topic_spec.rb[1:1:1]                    | passed | 0.001 seconds   |
-./spec/models/topic_spec.rb[1:2:1]                    | passed | 0.0107 seconds  |
-./spec/routing/topic_route_spec.rb[1:1:1]             | passed | 0.00284 seconds |
-./spec/views/topics/index.html.haml_spec.rb[1:1]      | passed | 0.00907 seconds |
+./spec/controllers/topics_controller_spec.rb[1:1:1:1] | passed | 0.01631 seconds |
+./spec/controllers/topics_controller_spec.rb[1:1:1:2] | passed | 0.00504 seconds |
+./spec/controllers/topics_controller_spec.rb[1:2:1]   | passed | 0.00276 seconds |
+./spec/models/topic_spec.rb[1:1:1]                    | passed | 0.00096 seconds |
+./spec/models/topic_spec.rb[1:2:1]                    | passed | 0.01097 seconds |
+./spec/routing/topic_route_spec.rb[1:1:1]             | passed | 0.00107 seconds |
+./spec/views/topics/index.html.haml_spec.rb[1:1]      | passed | 0.00627 seconds |
