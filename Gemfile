@@ -11,6 +11,8 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 
+gem 'haml'
+
 group :development, :test do
   gem 'byebug'
   gem 'rspec-rails', '~> 3.0'
@@ -18,5 +20,8 @@ end
 
 group :development do
   gem 'web-console', '~> 2.0'
+  gem 'spring'
+  gem 'guard'
+  gem 'guard-rspec', require: false
 end
 

@@ -1,49 +1,54 @@
-class Contract
+module Contract
+  extend self
   @created = {}
   @fullfilled = {}
 
-  def self.create argument
+  def create argument
     @created[argument] = caller[0]
   end
 
-  def self.fulfill argument
+  def fulfill argument
     @fullfilled[argument] = caller[0]
   end
 
-  def self.created_set
+  def created_set
     Set.new(@created.keys)
   end
 
-  def self.fullfilled_set
+  def fullfilled_set
     Set.new(@fullfilled.keys)
   end
 
-  def self.unmatched_created
+  def unmatched_created
     unmatched_keys.intersection(created_set)
   end
 
-  def self.unmatched_fulfilled
+  def unmatched_fulfilled
     unmatched_keys.intersection(fullfilled_set)
   end
 
-  def self.unmatched_keys
+  def unmatched_keys
     created_set ^ fullfilled_set
   end
 
-  def self.validate
+  def validate
     unmatched_keys.empty?
   end
 
-  def self.messages
+  def truncate path
+    path.sub(Rails.root.to_s+'/', '').split(':')[0,2].join(':')
+  end
+
+  def messages
     messages = []
     unmatched_created.map do |item|
-      messages << "Contract.create(#{item})"
-      messages << "   at #{@created[item]}"
+      messages << "Contract.create(#{item.inspect})"
+      messages << "   at #{truncate @created[item]}"
     end
 
     unmatched_fulfilled.map do |item|
-      messages << "Contract.fulfill(#{item})"
-      messages << "   at #{@fullfilled[item]}"
+      messages << "Contract.fulfill(#{item.inspect})"
+      messages << "   at #{truncate @fullfilled[item]}"
     end
     messages
   end
