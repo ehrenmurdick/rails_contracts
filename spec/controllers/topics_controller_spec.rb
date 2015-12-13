@@ -22,6 +22,7 @@ describe TopicsController do
       end
 
       it { expect(response.status).to eql(200) }
+      Contract.fulfill('TopicsController assigns @topics')
       it { expect(assigns[:topics]).to eql(topics) }
     end
   end

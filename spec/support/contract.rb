@@ -42,12 +42,12 @@ module Contract
   def messages
     messages = []
     unmatched_created.map do |item|
-      messages << "Contract.create(#{item.inspect})"
+      messages << %Q{Contract.create('#{item}')}
       messages << "   at #{truncate @created[item]}"
     end
 
     unmatched_fulfilled.map do |item|
-      messages << "Contract.fulfill(#{item.inspect})"
+      messages << %Q{ Contract.fulfill('#{item}') }
       messages << "   at #{truncate @fullfilled[item]}"
     end
     messages
